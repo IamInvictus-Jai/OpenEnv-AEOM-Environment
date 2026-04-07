@@ -1,0 +1,28 @@
+spec_version: 1
+name: aeom_env
+type: space
+runtime: fastapi
+app: server.app:app
+port: 8000
+description: >
+  Autonomous E-commerce Operations Manager — Level-2 customer support triage
+  for a quick-commerce platform. Agent resolves support tickets via refund,
+  reship, or denial while enforcing company policy.
+tags:
+  - customer-support
+  - e-commerce
+  - policy-enforcement
+  - multi-turn
+tasks:
+  - id: standard_refund
+    difficulty: easy
+    max_steps: 12
+  - id: damaged_item_refund
+    difficulty: medium
+    max_steps: 12
+  - id: policy_violation_denial
+    difficulty: hard
+    max_steps: 12
+reward_range: [0.0, 1.0]
+observation_type: json
+action_type: json
