@@ -3,20 +3,16 @@ import json
 import os
 import textwrap
 from typing import List, Optional
-
-from dotenv import load_dotenv
 from openai import OpenAI
-
-load_dotenv()
 
 from aeom_env import AeomEnv, AeomAction
 
-API_BASE_URL = os.getenv("API_BASE_URL", "https://api.openai.com/v1")
-API_KEY = os.getenv("API_KEY")
+API_KEY = os.getenv("HF_TOKEN") or os.getenv("API_KEY")
+API_BASE_URL = os.getenv("API_BASE_URL") or "https://router.huggingface.co/v1"
 if API_KEY is None:
     raise ValueError("API_KEY environment variable is required")
 
-MODEL_NAME = os.getenv("MODEL_NAME", "gpt-4.1-mini")
+MODEL_NAME = os.getenv("MODEL_NAME") or "Qwen/Qwen2.5-72B-Instruct"
 IMAGE_NAME   = os.getenv("IMAGE_NAME", "")
 SEED         = int(os.getenv("AEOM_SEED", "42"))
 BENCHMARK    = "aeom_env"
