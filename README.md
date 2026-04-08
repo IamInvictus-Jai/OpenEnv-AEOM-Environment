@@ -114,18 +114,27 @@ python -m uvicorn aeom_env.server.app:app --host 0.0.0.0 --port 8000
 
 ## Running Inference
 
-Set environment variables in `.env`:
-```
-HF_TOKEN=...
-API_BASE_URL=https://router.huggingface.co/v1
-MODEL_NAME=Qwen/Qwen2.5-72B-Instruct
-AEOM_SEED=42
+Copy `.env.example` to `.env` and fill in your values:
+
+```bash
+cp .env.example .env
 ```
 
-Then:
+| Variable | Required | Description |
+|---|---|---|
+| `HF_TOKEN` | Yes | Your Hugging Face API token (used as the LLM API key) |
+| `API_BASE_URL` | Yes | LLM endpoint — defaults to HF Inference Router |
+| `MODEL_NAME` | Yes | Model identifier for inference |
+| `AEOM_SEED` | No | Random seed for reproducible episodes (default: `42`) |
+| `IMAGE_NAME` | No | Local Docker image name — leave empty to use the live HF Space |
+| `ENV_URL` | No | Override the environment server URL (default: HF Space URL) |
+
+Then run:
 ```bash
 python inference.py
 ```
+
+By default `inference.py` connects to the live HF Space at `https://invictus-jai-aeom-env.hf.space`. Set `IMAGE_NAME` to run against a local Docker container instead.
 
 ---
 
