@@ -18,6 +18,8 @@ IMAGE_NAME   = os.environ.get("IMAGE_NAME", "")
 SEED         = int(os.environ.get("AEOM_SEED", "42"))
 BENCHMARK    = "aeom_env"
 MAX_STEPS    = 12
+
+print(f"[DEBUG] API_BASE_URL={API_BASE_URL} MODEL={MODEL_NAME}", flush=True)
 TEMPERATURE  = 0.3
 MAX_TOKENS   = 512
 
@@ -72,8 +74,8 @@ def ask_llm(client: OpenAI, messages: list) -> str:
         )
         return (resp.choices[0].message.content or "").strip()
     except Exception as e:
-        print(f"[DEBUG] LLM error: {e}", flush=True)
-        return ""
+        print(f"[DEBUG] LLM error: {type(e).__name__}: {e}", flush=True)
+        raise
 
 
 def parse_action(text: str) -> Optional[AeomAction]:
