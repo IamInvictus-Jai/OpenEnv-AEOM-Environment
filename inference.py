@@ -7,19 +7,19 @@ from openai import OpenAI
 
 from aeom_env import AeomEnv, AeomAction
 
-API_KEY = os.getenv("HF_TOKEN") or os.getenv("API_KEY")
-API_BASE_URL = os.getenv("API_BASE_URL") or "https://router.huggingface.co/v1"
+API_KEY = os.getenv("HF_TOKEN", None)
+API_BASE_URL = os.getenv("API_BASE_URL", "https://api.openai.com/v1")
 if API_KEY is None:
     raise ValueError("API_KEY environment variable is required")
 
-MODEL_NAME = os.getenv("MODEL_NAME") or "Qwen/Qwen2.5-72B-Instruct"
-IMAGE_NAME   = os.getenv("IMAGE_NAME", "")
-SEED         = int(os.getenv("AEOM_SEED", "42"))
-BENCHMARK    = "aeom_env"
-MAX_STEPS    = 12
+MODEL_NAME = os.getenv("MODEL_NAME", "gpt-4o-mini")
+IMAGE_NAME = os.getenv("IMAGE_NAME", "")
+SEED = int(os.getenv("AEOM_SEED", "42"))
+BENCHMARK = "aeom_env"
+MAX_STEPS = 12
 
-TEMPERATURE  = 0.3
-MAX_TOKENS   = 512
+TEMPERATURE = 0.3
+MAX_TOKENS = 512
 
 TASKS = ["standard_refund", "damaged_item_refund", "policy_violation_denial"]
 
@@ -98,7 +98,7 @@ async def run_task(client: OpenAI, task: str) -> float:
 
     log_start(task, MODEL_NAME)
 
-    connect = AeomEnv.from_docker_image(IMAGE_NAME) if IMAGE_NAME else AeomEnv(base_url="http://localhost:8000")
+    connect = AeomEnv.from_docker_image(IMAGE_NAME) if IMAGE_NAME else AeomEnv(base_url=os.getenv("ENV_URL", "http://localhost:8000"))
 
     try:
         async with connect as env:
