@@ -7,7 +7,7 @@ from typing import List, Optional
 from dotenv import load_dotenv
 from openai import OpenAI
 
-load_dotenv()
+load_dotenv(override=False)
 
 from aeom_env import AeomEnv, AeomAction
 
