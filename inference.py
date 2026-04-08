@@ -7,7 +7,7 @@ from typing import List, Optional
 from dotenv import load_dotenv
 from openai import OpenAI
 
-load_dotenv(override=False)
+load_dotenv()
 
 from aeom_env import AeomEnv, AeomAction
 
@@ -16,7 +16,7 @@ API_KEY = os.getenv("API_KEY")
 if API_KEY is None:
     raise ValueError("API_KEY environment variable is required")
 
-MODEL_NAME = os.getenv("MODEL_NAME", "gpt-4-turbo")
+MODEL_NAME = os.getenv("MODEL_NAME", "gpt-4.1-mini")
 IMAGE_NAME   = os.getenv("IMAGE_NAME", "")
 SEED         = int(os.getenv("AEOM_SEED", "42"))
 BENCHMARK    = "aeom_env"
