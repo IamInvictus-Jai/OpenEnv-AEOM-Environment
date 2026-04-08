@@ -133,7 +133,7 @@ async def run_task(client: OpenAI, task: str) -> float:
                 rewards.append(reward)
                 steps_taken = step
 
-                log_step(step, raw.replace("\n", " ")[:120], reward, done, error)
+                log_step(step, raw.replace("\n", " ")[:120], max(0.001, min(0.999, reward)), done, error)
 
                 messages.append({"role": "assistant", "content": raw})
                 messages.append({"role": "user", "content": json.dumps({
@@ -148,9 +148,9 @@ async def run_task(client: OpenAI, task: str) -> float:
                     break
 
             score = rewards[-1] if rewards else 0.0
-            # if the terminal step returned a final_score, use that as episode score
             if result.done and result.observation.final_score is not None:
                 score = result.observation.final_score
+            score = max(0.001, min(0.999, score))
             success = score >= 0.5
 
     except Exception as e:
