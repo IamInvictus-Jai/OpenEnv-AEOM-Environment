@@ -11,10 +11,10 @@ load_dotenv(override=False)
 
 from aeom_env import AeomEnv, AeomAction
 
-API_KEY      = os.environ.get("HF_TOKEN", "")
-API_BASE_URL = os.environ.get("API_BASE_URL", "https://api.openai.com/v1")
+API_KEY      = os.environ["API_KEY"]
+API_BASE_URL = os.environ["API_BASE_URL"]
 MODEL_NAME   = os.environ.get("MODEL_NAME", "Qwen/Qwen2.5-72B-Instruct")
-IMAGE_NAME   = os.environ.get("IMAGE_NAME")
+IMAGE_NAME   = os.environ.get("IMAGE_NAME", "")
 SEED         = int(os.environ.get("AEOM_SEED", "42"))
 BENCHMARK    = "aeom_env"
 MAX_STEPS    = 12
