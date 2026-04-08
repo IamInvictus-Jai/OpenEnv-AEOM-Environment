@@ -98,7 +98,7 @@ async def run_task(client: OpenAI, task: str) -> float:
 
     log_start(task, MODEL_NAME)
 
-    connect = AeomEnv.from_docker_image(IMAGE_NAME) if IMAGE_NAME else AeomEnv(base_url=os.getenv("ENV_URL", "https://invictus-jai-aeom-env.hf.space"))
+    connect = AeomEnv.from_docker_image(IMAGE_NAME) if IMAGE_NAME else AeomEnv(base_url="http://localhost:8000")
 
     try:
         async with connect as env:
