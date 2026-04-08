@@ -11,12 +11,11 @@ load_dotenv(override=False)
 
 from aeom_env import AeomEnv, AeomAction
 
-API_KEY = os.getenv("API_KEY") or os.getenv("HF_TOKEN")
-# API_BASE_URL = os.getenv("API_BASE_URL", "https://router.huggingface.co/v1")
-API_BASE_URL = os.getenv("API_BASE_URL", "https://api.openai.com/v1")
-MODEL_NAME   = os.getenv("MODEL_NAME", "Qwen/Qwen2.5-72B-Instruct")
-IMAGE_NAME   = os.getenv("IMAGE_NAME")
-SEED         = int(os.getenv("AEOM_SEED", "42"))
+API_KEY      = os.environ.get("HF_TOKEN", "")
+API_BASE_URL = os.environ.get("API_BASE_URL", "https://api.openai.com/v1")
+MODEL_NAME   = os.environ.get("MODEL_NAME", "Qwen/Qwen2.5-72B-Instruct")
+IMAGE_NAME   = os.environ.get("IMAGE_NAME")
+SEED         = int(os.environ.get("AEOM_SEED", "42"))
 BENCHMARK    = "aeom_env"
 MAX_STEPS    = 12
 TEMPERATURE  = 0.3
@@ -169,9 +168,6 @@ async def main() -> None:
 
 
 if __name__ == "__main__":
-    if API_KEY is None:
-        raise ValueError("HF_TOKEN environment variable is required")
-
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument("--task", choices=TASKS, default=None)
